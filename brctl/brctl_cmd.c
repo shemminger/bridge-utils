@@ -104,13 +104,13 @@ static int br_cmd_addif(int argc, char *const* argv)
 
 		case EBUSY:
 			fprintf(stderr,	"device %s is already a member of a bridge; "
-				"can't enslave it to bridge %s.\n", ifname,
+				"can't add it to bridge %s.\n", ifname,
 				brname);
 			break;
 
 		case ELOOP:
 			fprintf(stderr, "device %s is a bridge device itself; "
-				"can't enslave a bridge device to a bridge device.\n",
+				"can't add a bridge device to a bridge device.\n",
 				ifname);
 			break;
 
@@ -146,7 +146,7 @@ static int br_cmd_delif(int argc, char *const* argv)
 			break;
 
 		case EINVAL:
-			fprintf(stderr, "device %s is not a slave of %s\n",
+			fprintf(stderr, "device %s is not a port of %s\n",
 				ifname, brname);
 			break;
 

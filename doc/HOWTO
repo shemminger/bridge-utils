@@ -34,7 +34,7 @@ create an instance of the bridge first.
 	# brctl addbr br0
 
 (You can check that this gives you a network interface called br0.)
-Now we want to enslave eth0 and eth1 to this bridge.
+Now we want to add devices eth0 and eth1 to this bridge.
 
 	# brctl addif br0 eth0
 	# brctl addif br0 eth1

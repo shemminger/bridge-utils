@@ -10,7 +10,7 @@ Advantages of the new code are:
 - Each bridge is seen as a logical device, which allows you to do
   firewalling between port groups for example.
 - Everything is dynamic; bridges are created dynamically using the
-  userspace configuration tool, ports are 'enslaved' dynamically, etc.
+  userspace configuration tool, ports are added dynamically, etc.
 - It is being actively maintained.
 - It uses a hash table for MAC addresses, not an AVL tree.
 - It's small (currently 4 pages of i386 code) and modular.
