@@ -31,6 +31,9 @@
 extern unsigned int if_nametoindex (const char *__ifname);
 extern char *if_indextoname (unsigned int __ifindex, char *__ifname);
 
+#ifndef HAVE_STRLCPY
+size_t strlcpy(char *dst, const char *src, size_t size);
+#endif
 
 struct bridge_id
 {

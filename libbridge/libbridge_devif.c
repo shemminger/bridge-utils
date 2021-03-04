@@ -30,9 +30,9 @@
 
 static FILE *fpopen(const char *dir, const char *name)
 {
-	char path[SYSFS_PATH_MAX];
+	char path[PATH_MAX];
 
-	snprintf(path, SYSFS_PATH_MAX, "%s/%s", dir, name);
+	snprintf(path, PATH_MAX, "%s/%s", dir, name);
 	return fopen(path, "r");
 }
 
@@ -91,7 +91,7 @@ static int get_portno(const char *brname, const char *ifname)
 		goto error;
 
 	memset(ifindices, 0, sizeof(ifindices));
-	strncpy(ifr.ifr_name, brname, IFNAMSIZ);
+	strlcpy(ifr.ifr_name, brname, IFNAMSIZ);
 	ifr.ifr_data = (char *) &args;
 
 	if (ioctl(br_socket_fd, SIOCDEVPRIVATE, &ifr) < 0) {
@@ -119,7 +119,7 @@ static int old_get_bridge_info(const char *bridge, struct bridge_info *info)
 				  (unsigned long) &i, 0, 0 };
 
 	memset(info, 0, sizeof(*info));
-	strncpy(ifr.ifr_name, bridge, IFNAMSIZ);
+	strlcpy(ifr.ifr_name, bridge, IFNAMSIZ);
 	ifr.ifr_data = (char *) &args;
 
 	if (ioctl(br_socket_fd, SIOCDEVPRIVATE, &ifr) < 0) {
@@ -213,7 +213,7 @@ static int old_get_port_info(const char *brname, const char *port,
 		unsigned long args[4] = { BRCTL_GET_PORT_INFO,
 					   (unsigned long) &i, index, 0 };
 	
-		strncpy(ifr.ifr_name, brname, IFNAMSIZ);
+		strlcpy(ifr.ifr_name, brname, IFNAMSIZ);
 		ifr.ifr_data = (char *) &args;
 		
 		if (ioctl(br_socket_fd, SIOCDEVPRIVATE, &ifr) < 0) {
@@ -312,7 +312,7 @@ static int br_set(const char *bridge, const char *name,
 		struct ifreq ifr;
 		unsigned long args[4] = { oldcode, value, 0, 0 };
 
-		strncpy(ifr.ifr_name, bridge, IFNAMSIZ);
+		strlcpy(ifr.ifr_name, bridge, IFNAMSIZ);
 		ifr.ifr_data = (char *) &args;
 		ret = ioctl(br_socket_fd, SIOCDEVPRIVATE, &ifr);
 	}
@@ -373,7 +373,7 @@ static int port_set(const char *bridge, const char *ifname,
 			struct ifreq ifr;
 			unsigned long args[4] = { oldcode, index, value, 0 };
 			
-			strncpy(ifr.ifr_name, bridge, IFNAMSIZ);
+			strlcpy(ifr.ifr_name, bridge, IFNAMSIZ);
 			ifr.ifr_data = (char *) &args;
 			ret = ioctl(br_socket_fd, SIOCDEVPRIVATE, &ifr);
 		}
@@ -429,7 +429,7 @@ int br_read_fdb(const char *bridge, struct fdb_entry *fdbs,
 		struct ifreq ifr;
 		int retries = 0;
 
-		strncpy(ifr.ifr_name, bridge, IFNAMSIZ);
+		strlcpy(ifr.ifr_name, bridge, IFNAMSIZ);
 		ifr.ifr_data = (char *) args;
 
 	retry:

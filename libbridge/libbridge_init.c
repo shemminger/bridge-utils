@@ -46,7 +46,7 @@ void br_shutdown(void)
 /* If /sys/class/net/XXX/bridge exists then it must be a bridge */
 static int isbridge(const struct dirent *entry)
 {
-	char path[SYSFS_PATH_MAX];
+	char path[PATH_MAX];
 	struct stat st;
 	int ret, saved_errno;
 
@@ -56,7 +56,7 @@ static int isbridge(const struct dirent *entry)
 		    && entry->d_name[2] == '\0')))
 		return 0;
 
-	snprintf(path, SYSFS_PATH_MAX, 
+	snprintf(path, PATH_MAX, 
 		 SYSFS_CLASS_NET "%s/bridge", entry->d_name);
 
 	/* Workaround old glibc breakage.
@@ -161,7 +161,7 @@ static int old_foreach_port(const char *brname,
 				  (unsigned long)ifindices, MAX_PORTS, 0 };
 
 	memset(ifindices, 0, sizeof(ifindices));
-	strncpy(ifr.ifr_name, brname, IFNAMSIZ);
+	strlcpy(ifr.ifr_name, brname, IFNAMSIZ);
 	ifr.ifr_data = (char *) &args;
 
 	err = ioctl(br_socket_fd, SIOCDEVPRIVATE, &ifr);

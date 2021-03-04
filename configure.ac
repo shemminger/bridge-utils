@@ -24,6 +24,7 @@ AC_HEADER_TIME
 dnl Checks for library functions.
 AC_CHECK_FUNCS(gethostname socket strdup uname)
 AC_CHECK_FUNCS(if_nametoindex if_indextoname)
+AC_CHECK_FUNCS(strlcpy strlcat)
 
 AC_SUBST(KERNEL_HEADERS)
 

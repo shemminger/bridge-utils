@@ -48,3 +48,26 @@ int __get_hz(void)
 	const char * s = getenv("HZ");
 	return s ? atoi(s) : HZ;
 }
+
+#ifndef HAVE_STRLCPY
+#ifndef min
+# define min(x, y) ({			\
+	typeof(x) _min1 = (x);		\
+	typeof(y) _min2 = (y);		\
+	(void) (&_min1 == &_min2);	\
+	_min1 < _min2 ? _min1 : _min2; })
+#endif
+
+size_t strlcpy(char *dst, const char *src, size_t size)
+{
+	size_t srclen = strlen(src);
+
+	if (size) {
+		size_t minlen = min(srclen, size - 1);
+
+		memcpy(dst, src, minlen);
+		dst[minlen] = '\0';
+	}
+	return srclen;
+}
+#endif

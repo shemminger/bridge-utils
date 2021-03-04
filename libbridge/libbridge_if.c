@@ -40,7 +40,7 @@ int br_add_bridge(const char *brname)
 		unsigned long arg[3] 
 			= { BRCTL_ADD_BRIDGE, (unsigned long) _br };
 
-		strncpy(_br, brname, IFNAMSIZ);
+		strlcpy(_br, brname, IFNAMSIZ);
 		ret = ioctl(br_socket_fd, SIOCSIFBR, arg);
 	} 
 
@@ -60,7 +60,7 @@ int br_del_bridge(const char *brname)
 		unsigned long arg[3] 
 			= { BRCTL_DEL_BRIDGE, (unsigned long) _br };
 
-		strncpy(_br, brname, IFNAMSIZ);
+		strlcpy(_br, brname, IFNAMSIZ);
 		ret = ioctl(br_socket_fd, SIOCSIFBR, arg);
 	} 
 	return  ret < 0 ? errno : 0;
@@ -75,7 +75,7 @@ int br_add_interface(const char *bridge, const char *dev)
 	if (ifindex == 0) 
 		return ENODEV;
 	
-	strncpy(ifr.ifr_name, bridge, IFNAMSIZ);
+	strlcpy(ifr.ifr_name, bridge, IFNAMSIZ);
 #ifdef SIOCBRADDIF
 	ifr.ifr_ifindex = ifindex;
 	err = ioctl(br_socket_fd, SIOCBRADDIF, &ifr);
@@ -100,7 +100,7 @@ int br_del_interface(const char *bridge, const char *dev)
 	if (ifindex == 0) 
 		return ENODEV;
 	
-	strncpy(ifr.ifr_name, bridge, IFNAMSIZ);
+	strlcpy(ifr.ifr_name, bridge, IFNAMSIZ);
 #ifdef SIOCBRDELIF
 	ifr.ifr_ifindex = ifindex;
 	err = ioctl(br_socket_fd, SIOCBRDELIF, &ifr);
