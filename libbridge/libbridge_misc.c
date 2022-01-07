@@ -16,14 +16,11 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/time.h>
 #include <asm/param.h>
-#include "libbridge.h"
-#include "libbridge_private.h"
 
+#include "libbridge.h"
 
 static const char *state_names[5] = {
 	[BR_STATE_DISABLED] = "disabled", 

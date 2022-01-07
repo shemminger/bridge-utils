@@ -16,12 +16,9 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include <stdio.h>
-#include <stdlib.h>
 #include <errno.h>
-#include <string.h>
-#include <fcntl.h>
 #include <sys/ioctl.h>
+#include <linux/sockios.h>
 
 #include "libbridge.h"
 #include "libbridge_private.h"

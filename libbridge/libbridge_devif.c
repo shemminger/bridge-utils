@@ -18,12 +18,15 @@
 
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
 #include <errno.h>
 #include <string.h>
 #include <dirent.h>
 #include <fcntl.h>
+#include <limits.h>
+
+#include <sys/ioctl.h>
+#include <linux/sockios.h>
 
 #include "libbridge.h"
 #include "libbridge_private.h"
